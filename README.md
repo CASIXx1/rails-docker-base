@@ -3,22 +3,29 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
-Things you may want to cover:
+## Versions
+- Ruby version: 2.6.5
+- Rails version: 6.0.1
+- Mysql version: 5.7
+- docker-compose version: 3
 
-* Ruby version
+## System dependencies
 
-* System dependencies
+You need to run docker-compose. 
 
-* Configuration
+## Configuration
 
-* Database creation
+- `docker-compose build`
+- `docker-compose up -d`
 
-* Database initialization
+## Database creation
 
-* How to run the test suite
+- `docker-compose run rails bundle exec rails db:create`
 
-* Services (job queues, cache servers, search engines, etc.)
+## Database initialization
 
-* Deployment instructions
+## How to run the test suite
 
-* ...
+## Services (job queues, cache servers, search engines, etc.)
+
+## Deployment instructions
