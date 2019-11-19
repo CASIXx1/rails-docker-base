@@ -4,10 +4,11 @@ This README would normally document whatever steps are necessary to get the
 application up and running.
 
 ## Versions
-- Ruby version: 2.6.5
-- Rails version: 6.0.1
-- MySQL version: 5.7
-- docker-compose version: 3
+- Ruby : 2.6.5
+- Rails : 6.0.1
+- MySQL : 5.7
+- docker-compose : 3
+- CircleCI : 2.1
 
 ## System dependencies
 
