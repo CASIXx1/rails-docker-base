@@ -1,9 +1,28 @@
 version: 2.1
 
-jobs:
-  build:
+executors:
+  default:
     docker:
-      - image: circleci/ruby:2.6.5
+      - image: circleci/ruby:2.6.5-stretch-node
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+    working_directory: ~/myqpp
+
+jobs:
+  rubocop:
+    executor:
+      name: default
     steps:
       - checkout
-      - run: echo "hello world"
+      - run:
+          name: bundle install
+          command: |
+            bundle install --path=vendor/bundle --path=vendor/bundle --jobs=4
+      - run: echo "success"
+
+workflows:
+  version: 2
+  flows:
+    jobs:
+      - rubocop:
