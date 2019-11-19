@@ -6,7 +6,7 @@ application up and running.
 ## Versions
 - Ruby version: 2.6.5
 - Rails version: 6.0.1
-- Mysql version: 5.7
+- MySQL version: 5.7
 - docker-compose version: 3
 
 ## System dependencies
