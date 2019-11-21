@@ -40,10 +40,10 @@ group :development, :test do
   gem 'binding_of_caller'
 
   gem 'hirb'
-  gem 'hirb-unicode'
 
   # Use lint checker
   gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
 end
 
 group :development do
