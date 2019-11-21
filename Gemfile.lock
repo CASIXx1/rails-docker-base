@@ -261,7 +261,6 @@ DEPENDENCIES
   spring
   spring-watcher-listen
   turbolinks
-  tzinfo-data
   web-console
   webdrivers
   webpacker
