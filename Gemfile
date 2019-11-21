@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -30,9 +32,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   # Use debugger
-  gem 'pry-rails'
-  gem 'pry-doc'
   gem 'pry-byebug'
+  gem 'pry-doc'
+  gem 'pry-rails'
   gem 'pry-stack_explorer'
 
   # Use console
@@ -50,8 +52,8 @@ end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console'
   gem 'listen'
+  gem 'web-console'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen'

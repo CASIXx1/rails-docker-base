@@ -1,2 +1,11 @@
 require:
+  - rubocop-performance
+  - rubocop-rspec
   - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 2.6
+
+  Exclude:
+    - 'bin/**/*'
+    - 'node_modules/**/*'
