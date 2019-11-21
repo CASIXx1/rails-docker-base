@@ -8,4 +8,12 @@ AllCops:
 
   Exclude:
     - 'bin/**/*'
+    - 'db/migrate/**/*'
+    - 'db/schema.rb'
     - 'node_modules/**/*'
+
+Metrics/LineLength:
+  IgnoredPatterns: ['\A( *)#']
+
+Documentation:
+  Enabled: false
