@@ -19,7 +19,10 @@ jobs:
           name: bundle install
           command: |
             bundle install --path=vendor/bundle --path=vendor/bundle --jobs=4
-      - run: echo "success"
+      - run:
+          name: run rubocop
+          command: |
+            bundle exec rubocop
 
 workflows:
   version: 2

@@ -1,0 +1,20 @@
+require:
+  - rubocop-performance
+  - rubocop-rspec
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 2.6
+
+  Exclude:
+    - 'bin/**/*'
+    - 'db/migrate/**/*'
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+
+Metrics/LineLength:
+  IgnoredPatterns: ['\A( *)#']
+
+Documentation:
+  Enabled: false
