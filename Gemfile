@@ -44,6 +44,7 @@ group :development, :test do
   gem 'hirb'
 
   # Use test tools
+  gem 'factory_bot_rails'
   gem 'rspec-rails'
 
   # Use lint checker
