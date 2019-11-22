@@ -45,6 +45,7 @@ group :development, :test do
 
   # Use test tools
   gem 'factory_bot_rails'
+  gem 'faker'
   gem 'rspec-rails'
 
   # Use lint checker
