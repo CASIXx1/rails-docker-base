@@ -16,6 +16,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: update bundler to 2.0.2
+          command: |
+            gem install bundler -v '2.0.2'
+      - run:
           name: bundle install
           command: |
             bundle install --path=vendor/bundle --path=vendor/bundle --jobs=4
