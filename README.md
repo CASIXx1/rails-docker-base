@@ -1,7 +1,6 @@
-# README
+# This is a template repository!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Settings for running Rails on Docker are written.
 
 ## Initial settings
 
