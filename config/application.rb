@@ -8,6 +8,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# TODO: Rename to your application name
 module Myapp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -17,5 +18,16 @@ module Myapp
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    config.generators.test_framework :rspec
+    # optional settings
+    #
+    # config.generators do |g|
+    #   g.test_framework :rspec
+    #   g.controller_specs: false,
+    #   g.view_specs: false,
+    #   g.helper_specs: false,
+    #   g.routing_specs: false
+    # end
   end
 end

@@ -43,6 +43,11 @@ group :development, :test do
 
   gem 'hirb'
 
+  # Use test tools
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'rspec-rails'
+
   # Use lint checker
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
