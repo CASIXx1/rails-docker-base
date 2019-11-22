@@ -12,6 +12,11 @@ module Myapp
 ↓ rename to
 module YourRepositoryName
 ```
+3. install docker-compose
+
+You need an environment that can run docker-compose. 
+https://docs.docker.com/compose/install/
+
 
 ## Including systems
 - Ruby : 2.6.5
@@ -26,17 +31,15 @@ module YourRepositoryName
   - rspec tools
   - rubocop tools
 
-## System dependencies
-
-You need an environment that can run docker-compose. 
-https://docs.docker.com/compose/install/
-
-## 
-
-By using docker-compose, you can create rails and mysql environment.
-
 - `docker-compose build`
 - `docker-compose up -d`
+
+## Settings
+
+- `docker-compose build`
+  - build rails and mysql docker
+- `docker-compose up`
+  - up rails and mysql docker
 
 ### Install react or vue
 
@@ -44,27 +47,26 @@ Although react and vue are not included, webpacker is included, so you can insta
 
 ```
 # install react
-$ rails webpacker:install:react
-$ rails generate react:install
+$ docker-compose run rails bundle exec rails webpacker:install:react
+$ docker-compose run rails bundle exec rails generate react:install
 
 # install vue
-$ rails webpacker:install:vue
-$ rails generate react:vue
+$ docker-compose run rails bundle exec rails webpacker:install:vue
+$ docker-compose run rails bundle exec rails generate react:vue
 ```
 
-
-## Database creation
+### Database creation
 
 - `docker-compose run rails bundle exec rails db:create`
 
-## Database initialization
+### Database initialization
 
-## How to run the test suite
+### How to run the test suite
 
-### rubocop
+#### rubocop
 - `docker-compose run rails bundle exec rubocop`
 
-### rspec
+#### rspec
 - `docker-compose run rails bundle exec rspec`
 
 ## Services (job queues, cache servers, search engines, etc.)
