@@ -19,20 +19,20 @@ https://docs.docker.com/compose/install/
 
 
 ## Including systems
-- Ruby : 2.6.5
-- bundler : 2.0.2
-- Rails : 6.0.1
-- MySQL : 5.7
-- docker-compose : 3
-- CircleCI : 2.1
+| System | Version |
+|---|---|
+| Ruby | 2.6.5 |
+| bundler | 2.0.2 |
+| Rails | 6.0.1 |
+| MySQL | 5.7 |
+| docker-compose | 3 |
+| CircleCI | 2.1 |
+
 - etc...
   - nodejs, yarn
   - webpacker
   - rspec tools
   - rubocop tools
-
-- `docker-compose build`
-- `docker-compose up -d`
 
 ## Settings
 
