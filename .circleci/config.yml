@@ -11,46 +11,43 @@ executors:
       - image: circleci/mysql:5.7
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_ROOT_HOST: '%'
     working_directory: ~/myqpp
 
-jobs:
-  build:
-    executor:
-      name: default
+commands:
+  bundle_install:
+    description: 'bundle install using cache'
     steps:
-      - checkout
       - run:
           name: update bundler to 2.0.2
           command: |
             gem install bundler -v '2.0.2'
       - restore_cache:
-          key: gem-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-          paths:
-            - ~/myapp/vendor/bundle
+          key: gem-{{ checksum "Gemfile.lock" }}
       - run:
           name: bundle install
           command: |
-            bundle install --path=vendor/bundle --path=vendor/bundle --jobs=4
+            bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4
       - save_cache:
-          key: gem-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: gem-{{ checksum "Gemfile.lock" }}
           paths:
-            - ~/myapp/vendor/bundle
-      - persist_to_workspace:
-          root: ~/myapp
-          paths:
-            - vendor/bundle/*
+            - vendor/bundle
+
+jobs:
   rspec:
     executor:
       name: default
     steps:
       - checkout
+      - bundle_install
       - run:
-          name: build --path
+          name: wait for db
           command: |
-            bundle --path vendor/bundle
+            dockerize -wait tcp://localhost:3306 -timeout 1m
       - run:
           name: setup db
-          command: bundle exec rails db:create db:migrate
+          command: |
+            bundle exec rails db:create db:migrate
       - run:
           name: run rspec
           command: |
@@ -61,10 +58,7 @@ jobs:
       name: default
     steps:
       - checkout
-      - run:
-          name: build --path
-          command: |
-            bundle --path vendor/bundle
+      - bundle_install
       - run:
           name: run rubocop
           command: |
@@ -74,10 +68,5 @@ workflows:
   version: 2
   flows:
     jobs:
-      - build
-      - rspec:
-          requires:
-            - build
-      - rubocop:
-          requires:
-            - build
+      - rspec
+      - rubocop
