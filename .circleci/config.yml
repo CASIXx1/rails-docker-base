@@ -14,7 +14,7 @@ executors:
     working_directory: ~/myqpp
 
 jobs:
-  setup:
+  build:
     executor:
       name: default
     steps:
