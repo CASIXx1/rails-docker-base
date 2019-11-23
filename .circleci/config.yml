@@ -4,13 +4,17 @@ executors:
   default:
     docker:
       - image: circleci/ruby:2.6.5-stretch-node
+        environment:
+          RAILS_ENV: test
+          DATABASE_HOST: 127.0.0.1
+          DATABASE_USER: 'root'
       - image: circleci/mysql:5.7
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
     working_directory: ~/myqpp
 
 jobs:
-  rspec:
+  setup:
     executor:
       name: default
     steps:
@@ -19,10 +23,34 @@ jobs:
           name: update bundler to 2.0.2
           command: |
             gem install bundler -v '2.0.2'
+      - restore_cache:
+          key: gem-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ~/myapp/vendor/bundle
       - run:
           name: bundle install
           command: |
             bundle install --path=vendor/bundle --path=vendor/bundle --jobs=4
+      - save_cache:
+          key: gem-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ~/myapp/vendor/bundle
+      - persist_to_workspace:
+          root: ~/myapp
+          paths:
+            - vendor/bundle/*
+  rspec:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - run:
+          name: build --path
+          command: |
+            bundle --path vendor/bundle
+      - run:
+          name: setup db
+          command: bundle exec rails db:create db:migrate
       - run:
           name: run rspec
           command: |
@@ -34,13 +62,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: update bundler to 2.0.2
+          name: build --path
           command: |
-            gem install bundler -v '2.0.2'
-      - run:
-          name: bundle install
-          command: |
-            bundle install --path=vendor/bundle --path=vendor/bundle --jobs=4
+            bundle --path vendor/bundle
       - run:
           name: run rubocop
           command: |
@@ -50,5 +74,10 @@ workflows:
   version: 2
   flows:
     jobs:
+      - build
       - rspec
+          requires:
+            - build
       - rubocop
+          requires:
+            - build
