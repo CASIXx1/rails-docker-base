@@ -23,7 +23,7 @@ https://docs.docker.com/compose/install/
 |---|---|
 | Ruby | 2.6.5 |
 | bundler | 2.0.2 |
-| Rails | 6.0.1 |
+| Rails | 6.0.2.1 |
 | MySQL | 5.7 |
 | docker-compose | 3 |
 | CircleCI | 2.1 |
