@@ -4,7 +4,8 @@ require:
   - rubocop-rspec
 
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 2.7
+  NewCops: enable
 
   Exclude:
     - 'bin/**/*'
@@ -13,8 +14,13 @@ AllCops:
     - 'node_modules/**/*'
     - 'vendor/**/*'
 
-Metrics/LineLength:
-  IgnoredPatterns: ['\A( *)#']
-
 Documentation:
   Enabled: false
+
+RSpec/FactoryBot/CreateList:
+  Description: Checks for create_list usage.
+  Enabled: true
+  EnforcedStyle: create_list
+  SupportedStyles:
+    - create_list
+    - n_times
