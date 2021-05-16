@@ -13,7 +13,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     apt-get update && apt-get install -y yarn
 
 RUN gem update --system && \
-    gem install bundler -v '2.0.2'
+    gem install bundler -v '2.2.17'
 
 RUN bundle config build.nokogiri --use-system-libraries && \
     bundle install
