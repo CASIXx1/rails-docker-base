@@ -21,7 +21,7 @@ https://docs.docker.com/compose/install/
 ## Including systems
 | System | Version |
 |---|---|
-| Ruby | 2.7.0 |
+| Ruby | 3.0.1 |
 | bundler | 2.2.17 |
 | Rails | 6.1.3.2 |
 | MySQL | 5.7 |
