@@ -1,0 +1,72 @@
+version: 2.1
+
+executors:
+  default:
+    docker:
+      - image: circleci/ruby:2.7.3-stretch-node
+        environment:
+          RAILS_ENV: test
+          DATABASE_HOST: 127.0.0.1
+          DATABASE_USER: 'root'
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_ROOT_HOST: '%'
+    working_directory: ~/myqpp
+
+commands:
+  bundle_install:
+    description: 'bundle install using cache'
+    steps:
+      - run:
+          name: update bundler to 2.0.2
+          command: |
+            gem install bundler -v '2.0.2'
+      - restore_cache:
+          key: gem-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: bundle install
+          command: |
+            bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4
+      - save_cache:
+          key: gem-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+jobs:
+  rspec:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - bundle_install
+      - run:
+          name: wait for db
+          command: |
+            dockerize -wait tcp://localhost:3306 -timeout 1m
+      - run:
+          name: setup db
+          command: |
+            bundle exec rails db:create db:migrate
+      - run:
+          name: run rspec
+          command: |
+            bundle exec rspec
+
+  rubocop:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - bundle_install
+      - run:
+          name: run rubocop
+          command: |
+            bundle exec rubocop
+
+workflows:
+  version: 2
+  flows:
+    jobs:
+      - rspec
+      - rubocop
