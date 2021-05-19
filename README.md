@@ -4,19 +4,25 @@ Settings for running Rails on Docker are written.
 
 ## Initial settings
 
-1. Click to `Use this template` and create your repository.
-1. you need to rename `config/application.rb`
+### Click to `Use this template` and create your repository.
+### you need to rename `config/application.rb`
 
 ```config/application.rb
 module Myapp
 ↓ rename to
 module YourRepositoryName
 ```
-3. install docker-compose
+
+### install docker-compose
 
 You need an environment that can run docker-compose. 
 https://docs.docker.com/compose/install/
 
+### generate master key
+
+```
+docker-compose run -e EDITOR="vi" rails rails credentials:edit
+```
 
 ## Including systems
 | System | Version |
@@ -31,6 +37,7 @@ https://docs.docker.com/compose/install/
   - nodejs, yarn
   - GitHub Actions
   - webpacker
+  - heroku
   - rspec tools
   - rubocop tools
 
@@ -75,4 +82,31 @@ $ docker-compose run rails bundle exec rails generate react:vue
 
 ## Deployment instructions
 
-- Nothing
+### Heroku
+
+#### create app
+ 
+```
+$ brew tap heroku/brew && brew install heroku
+
+$ heroku login
+
+$ heroku create app_name 
+```
+
+#### set database config
+
+```
+$ heroku addons:add cleardb
+
+$ zsh
+$ heroku_cleardb=`heroku config:get CLEARDB_DATABASE_URL`
+$ heroku_cleardb=mysql2${heroku_cleardb:5}
+$ heroku config:set DATABASE_URL=$heroku_cleardb
+```
+
+#### set master key
+
+```
+$ heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
+```
